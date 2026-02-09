@@ -1,0 +1,11 @@
+.draggable-item {
+    height: 60px;
+    width: 60px;
+}
+
+.tier-middle {
+    display: inline-block;
+    width: 500px;
+    height: 100px;
+    background-color: lightgray;
+}

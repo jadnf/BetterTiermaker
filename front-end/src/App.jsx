@@ -1,3 +1,6 @@
+import "./styles.css";
+import TierlistPage from "./pages/TierlistPage";
+
 function App() {
   return (
     <div className="App">
@@ -6,7 +9,7 @@ function App() {
         <p>
           This app is going to be a better version of Tiermaker, made by Neumont students for CSC130!
         </p>
-        
+        <TierlistPage />
       </header>
     </div>
   );
