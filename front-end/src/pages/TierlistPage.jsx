@@ -9,7 +9,7 @@ import Tier from "../components/Tier.jsx";
 export default function TierlistPage() {
     // const draggables = [1, 2, 3, 4, 5];
     const [items, setItems] = useState({
-        '0' : ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+        '0' : ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8', 'Item 9', 'Item 10', 'Item 11', 'Item 12', 'Item 13', 'Item 14', 'Item 15', 'Item 16', 'Item 17'],
         '1' : [],
         '2' : [],
         '3' : []

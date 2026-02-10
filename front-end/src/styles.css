@@ -8,24 +8,37 @@
     flex-wrap: wrap;
 }
 
+.tier {
+    display: flex;
+    margin-bottom: 10px;
+}
+
 .tier-middle {
     display: inline-block;
     width: 500px;
-    height: 100px;
+    min-height: 100px;
     background-color: lightgray;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    gap: 10px; 
+    gap: 5px; 
+    padding: 5px;
 }
 
 .unranked-container {
     display: inline-block;
     width: 500px;
-    height: 100px;
+    min-height: 100px;
     background-color: lightgray;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    gap: 10px; 
+    gap: 5px; 
+    padding: 5px;
 }
+
+.tiers-container {
+    display: flex;
+    flex-direction: column;
+}
+

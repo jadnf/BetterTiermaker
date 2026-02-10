@@ -9,21 +9,24 @@ export default function Tier(props) {
     });
 
     return (
+        
         <SortableContext id={props.id} items={items} strategy={rectSortingStrategy}>
-            <span className="tier-label">
-                {props.label}
-            </span>
-            <span ref={setNodeRef} className="tier-middle">
-                {items.size === 0 ? "Drop here" : ""}
-                {items.map((id) => {
-                    return (
-                        <DraggableItem key={id} id={id} />
-                    )
-                })}
-            </span>
-            <span className="tier-settings">
-                Settings ⚙️
-            </span>
+            <div className="tier">
+                <span className="tier-label">
+                    {props.label}
+                </span>
+                <span ref={setNodeRef} className="tier-middle">
+                    {items.size === 0 ? "Drop here" : ""}
+                    {items.map((id) => {
+                        return (
+                            <DraggableItem key={id} id={id} />
+                        )
+                    })}
+                </span>
+                <span className="tier-settings">
+                    Settings ⚙️
+                </span>
+            </div>
         </SortableContext>
     );
 }
