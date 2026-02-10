@@ -1,5 +1,5 @@
 import { useDroppable } from "@dnd-kit/core";
-import { SortableContext } from "@dnd-kit/sortable"
+import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 import DraggableItem from "./DraggableItem";
 
 export default function Tier(props) {
@@ -9,7 +9,7 @@ export default function Tier(props) {
     });
 
     return (
-        <SortableContext items={items}>
+        <SortableContext id={props.id} items={items} strategy={rectSortingStrategy}>
             <span className="tier-label">
                 {props.label}
             </span>
