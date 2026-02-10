@@ -11,7 +11,7 @@ export default function Tier(props) {
                 {props.label}
             </span>
             <span ref={setNodeRef} className="tier-middle">
-
+                {props.children}
             </span>
             <span className="tier-settings">
                 Settings ⚙️

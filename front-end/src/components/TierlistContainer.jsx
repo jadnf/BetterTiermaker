@@ -1,14 +1,9 @@
-import Tier from "./Tier.jsx";
-
-export default function TierlistContainer() {
-
+export default function TierlistContainer(props) {
 
     return (
         <div>
             <h2>Tierlist Container</h2>
-            <Tier id="1" />
-            <Tier id="2" />
-            <Tier id="3" />
+            {props.children}
         </div>
     );
 }

@@ -1,6 +1,11 @@
 .draggable-item {
     height: 60px;
     width: 60px;
+    background-color: lightgreen;
+    justify-content: center;
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .tier-middle {
