@@ -57,54 +57,54 @@ export default function TierlistPage() {
         setActiveId(event.active.id);
     }
     
-
+    // following Drag / Drop methods created with the help of Gemini 3 Pro
     function handleDragOver(event) {
         const { active, over } = event;
-    const overId = over?.id;
+        const overId = over?.id;
 
-    if (!overId || active.id === overId) return;
+        if (!overId || active.id === overId) return;
 
-    const activeContainer = findContainer(active.id);
-    const overContainer = findContainer(overId);
+        const activeContainer = findContainer(active.id);
+        const overContainer = findContainer(overId);
 
-    if (!activeContainer || !overContainer || activeContainer === overContainer) {
-        return;
-    }
-
-    setItems((prev) => {
-        const activeItems = prev[activeContainer];
-        const overItems = prev[overContainer];
-        const activeIndex = activeItems.indexOf(active.id);
-        const overIndex = overItems.indexOf(overId);
-
-        let newIndex;
-
-        if (overId in prev) {
-            newIndex = overItems.length + 1;
-        } else {
-            const isBelowOverItem =
-                over &&
-                active.rect.current.translated &&
-                active.rect.current.translated.top >
-                over.rect.top + over.rect.height;
-
-            const modifier = isBelowOverItem ? 1 : 0;
-
-            newIndex = overIndex >= 0 ? overIndex + modifier : overItems.length + 1;
+        if (!activeContainer || !overContainer || activeContainer === overContainer) {
+            return;
         }
 
-        return {
-            ...prev,
-            [activeContainer]: [
-                ...prev[activeContainer].filter((item) => item !== active.id)
-            ],
-            [overContainer]: [
-                ...prev[overContainer].slice(0, newIndex),
-                items[activeContainer][activeIndex],
-                ...prev[overContainer].slice(newIndex, prev[overContainer].length)
-            ]
-        };
-    });
+        setItems((prev) => {
+            const activeItems = prev[activeContainer];
+            const overItems = prev[overContainer];
+            const activeIndex = activeItems.indexOf(active.id);
+            const overIndex = overItems.indexOf(overId);
+
+            let newIndex;
+
+            if (overId in prev) {
+                newIndex = overItems.length + 1;
+            } else {
+                const isBelowOverItem =
+                    over &&
+                    active.rect.current.translated &&
+                    active.rect.current.translated.top >
+                    over.rect.top + over.rect.height;
+
+                const modifier = isBelowOverItem ? 1 : 0;
+
+                newIndex = overIndex >= 0 ? overIndex + modifier : overItems.length + 1;
+            }
+
+            return {
+                ...prev,
+                [activeContainer]: [
+                    ...prev[activeContainer].filter((item) => item !== active.id)
+                ],
+                [overContainer]: [
+                    ...prev[overContainer].slice(0, newIndex),
+                    items[activeContainer][activeIndex],
+                    ...prev[overContainer].slice(newIndex, prev[overContainer].length)
+                ]
+            };
+        });
     }
 
 
@@ -133,4 +133,6 @@ export default function TierlistPage() {
 
         setActiveId(null);
     }
+    // End of AI-Assisted code
+
 }
