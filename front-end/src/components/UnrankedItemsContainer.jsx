@@ -12,7 +12,7 @@ export default  function UnrankedItemsContainer(props) {
         <div>
             <SortableContext id={props.id} items={items} strategy={rectSortingStrategy}>
                 <h3>Unranked Container</h3>
-                <div ref={setNodeRef}>
+                <div className="unranked-container" ref={setNodeRef}>
                     {items.size === 0 ? "Drop here" : ""}
                     {items.map((id) => {
                         return (

@@ -18,3 +18,14 @@
     flex-direction: row;
     gap: 10px; 
 }
+
+.unranked-container {
+    display: inline-block;
+    width: 500px;
+    height: 100px;
+    background-color: lightgray;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 10px; 
+}
