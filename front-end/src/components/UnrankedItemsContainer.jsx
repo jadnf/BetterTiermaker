@@ -13,7 +13,6 @@ export default  function UnrankedItemsContainer(props) {
             <SortableContext id={props.id} items={items} strategy={rectSortingStrategy}>
                 <h3>Unranked Container</h3>
                 <div className="unranked-container" ref={setNodeRef}>
-                    {items.length === 0 ? "Drop here" : ""}
                     {items.map((id) => {
                         return (
                             <DraggableItem key={id} id={id} imageUrl={props.imgUrlLookup[id]} />

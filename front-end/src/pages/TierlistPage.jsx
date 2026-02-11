@@ -12,7 +12,7 @@ import DraggableItem from "../components/DraggableItem.jsx";
 export default function TierlistPage() {
     // const draggables = [1, 2, 3, 4, 5];
     const [items, setItems] = useState({
-        '0' : ["item-1"],
+        '0' : [],
         '1' : [],
         '2' : [],
         '3' : []
@@ -33,7 +33,6 @@ export default function TierlistPage() {
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
             <div>
-                 <UploadPhoto onUpload={handleUpload} />
                 <TierlistContainer > 
                     <Tier id="1" items={items['1']} imgUrlLookup={imgUrlLookup}>
                     </Tier>
@@ -42,9 +41,10 @@ export default function TierlistPage() {
                     <Tier id="3" items={items['3']} imgUrlLookup={imgUrlLookup}>
                     </Tier>                
                 </TierlistContainer>
-                <UnrankedItemsContainer id="0" items={items['0']} imgUrlLookup={imgUrlLookup}>
-                    
-                </UnrankedItemsContainer>
+                <UnrankedItemsContainer id="0" items={items['0']} imgUrlLookup={imgUrlLookup}/>
+                
+                <UploadPhoto onUpload={handleUpload} />
+
                 <DragOverlay>
                     {activeId ? <DraggableItem id={activeId} imageUrl={imgUrlLookup[activeId]} /> : null}
                 </DragOverlay>
@@ -52,14 +52,12 @@ export default function TierlistPage() {
         </DndContext>
     );
 
-
     function findContainer(id) {
         if (id in items) {
             return id;
         }
         return Object.keys(items).find((key) => items[key].includes(id));
     }
-
 
     function handleDragStart(event) {
         setActiveId(event.active.id);
@@ -115,7 +113,6 @@ export default function TierlistPage() {
         });
     }
 
-
     function handleDragEnd(event) {
         const { active, over } = event;
         const activeContainer = findContainer(active.id);
@@ -153,11 +150,9 @@ export default function TierlistPage() {
 
         setImgUrlLookup((prev) => ({
             ...prev,
-            newItemId: imageUrl
+            [newItemId]: imageUrl
         }))
 
         setItemCount(itemCount+1);
     }
-
-
 }

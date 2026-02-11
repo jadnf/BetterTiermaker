@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function UploadPhoto({ onUpload }) {
-  const [imagePreview, setImagePreview] = useState(null);
+  //const [imagePreview, setImagePreview] = useState(null);
 
   function handleFileChange(e) {
     const file = e.target.files[0];
@@ -9,7 +9,7 @@ function UploadPhoto({ onUpload }) {
 
     const imageUrl = URL.createObjectURL(file);
 
-    setImagePreview(imageUrl);
+    //setImagePreview(imageUrl);
 
     // send image back to TierlistPage
     if (onUpload) {
@@ -23,12 +23,12 @@ function UploadPhoto({ onUpload }) {
 
       <input type="file" accept="image/*" onChange={handleFileChange} />
 
-      {imagePreview && (
+      {/* {imagePreview && (
         <div>
           <h3>Preview:</h3>
           <img src={imagePreview} alt="Uploaded" width="150" />
         </div>
-      )}
+      )} */}
     </div>
   );
 }

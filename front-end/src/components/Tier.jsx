@@ -9,14 +9,12 @@ export default function Tier(props) {
     });
 
     return (
-        
         <SortableContext id={props.id} items={items} strategy={rectSortingStrategy}>
             <div className="tier">
                 <span className="tier-label">
                     {props.label}
                 </span>
                 <span ref={setNodeRef} className="tier-middle">
-                    {items.length === 0 ? "Drop here" : ""}
                     {items.map((id) => {
                         return (
                             <DraggableItem key={id} id={id} imageUrl={props.imgUrlLookup[id]} />
