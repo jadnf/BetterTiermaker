@@ -6,16 +6,21 @@ import TierlistContainer from "../components/TierlistContainer";
 import UnrankedItemsContainer from "../components/UnrankedItemsContainer";
 import Tier from "../components/Tier.jsx"; 
 import UploadPhoto from "../components/PhotoImport";
+import DraggableItem from "../components/DraggableItem.jsx";
 
 
 export default function TierlistPage() {
     // const draggables = [1, 2, 3, 4, 5];
     const [items, setItems] = useState({
-        '0' : ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8', 'Item 9', 'Item 10', 'Item 11', 'Item 12', 'Item 13', 'Item 14', 'Item 15', 'Item 16', 'Item 17'],
+        '0' : ["item-1"],
         '1' : [],
         '2' : [],
         '3' : []
     });
+    const [imgUrlLookup, setImgUrlLookup] = useState({
+        "item-1": 'https://placehold.co/100x100?text=1' 
+    });
+    const [itemCount, setItemCount] = useState(1);
     const [activeId, setActiveId] = useState(null);
 
     const sensors = useSensors(
@@ -30,18 +35,18 @@ export default function TierlistPage() {
             <div>
                  <UploadPhoto onUpload={handleUpload} />
                 <TierlistContainer > 
-                    <Tier id="1" items={items['1']}>
+                    <Tier id="1" items={items['1']} imgUrlLookup={imgUrlLookup}>
                     </Tier>
-                    <Tier id="2" items={items['2']}>
+                    <Tier id="2" items={items['2']} imgUrlLookup={imgUrlLookup}>
                     </Tier>                    
-                    <Tier id="3" items={items['3']}>
+                    <Tier id="3" items={items['3']} imgUrlLookup={imgUrlLookup}>
                     </Tier>                
                 </TierlistContainer>
-                <UnrankedItemsContainer id="0" items={items['0']}>
+                <UnrankedItemsContainer id="0" items={items['0']} imgUrlLookup={imgUrlLookup}>
                     
                 </UnrankedItemsContainer>
                 <DragOverlay>
-                    {activeId ? <div className="draggable-item">{activeId}</div> : null}
+                    {activeId ? <DraggableItem id={activeId} imageUrl={imgUrlLookup[activeId]} /> : null}
                 </DragOverlay>
             </div>
         </DndContext>
@@ -139,11 +144,20 @@ export default function TierlistPage() {
     // End of AI-Assisted code
 
     function handleUpload(imageUrl) {
-  setItems((prev) => ({
-    ...prev,
-    "0": [...prev["0"], imageUrl]
-  }));
-}
+        let newItemId = "item-"+(itemCount+1);
+
+        setItems((prev) => ({
+            ...prev,
+            "0": [...prev["0"], newItemId]
+        }));
+
+        setImgUrlLookup((prev) => ({
+            ...prev,
+            newItemId: imageUrl
+        }))
+
+        setItemCount(itemCount+1);
+    }
 
 
 }

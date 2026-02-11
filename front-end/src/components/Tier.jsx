@@ -16,10 +16,10 @@ export default function Tier(props) {
                     {props.label}
                 </span>
                 <span ref={setNodeRef} className="tier-middle">
-                    {items.size === 0 ? "Drop here" : ""}
+                    {items.length === 0 ? "Drop here" : ""}
                     {items.map((id) => {
                         return (
-                            <DraggableItem key={id} id={id} />
+                            <DraggableItem key={id} id={id} imageUrl={props.imgUrlLookup[id]} />
                         )
                     })}
                 </span>

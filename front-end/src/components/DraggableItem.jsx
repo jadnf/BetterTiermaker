@@ -13,7 +13,8 @@ export default  function DraggableItem(props) {
 
     return (
         <div className="draggable-item" style={style} ref={setNodeRef} {...listeners} {...attributes}>
-            <span>{props.id}</span>
+            
+            <img alt={props.id} src={props.imageUrl}></img>
         </div>
     );
 }

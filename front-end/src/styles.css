@@ -6,6 +6,14 @@
     align-content: center;
     display: flex;
     flex-wrap: wrap;
+
+}
+
+.draggable-item img {
+    object-fit: cover;
+    pointer-events: none;
+    height: 60px;
+    width: 60px;
 }
 
 .tier {
