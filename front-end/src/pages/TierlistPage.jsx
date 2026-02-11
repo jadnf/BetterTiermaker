@@ -5,6 +5,8 @@ import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import TierlistContainer from "../components/TierlistContainer";
 import UnrankedItemsContainer from "../components/UnrankedItemsContainer";
 import Tier from "../components/Tier.jsx"; 
+import UploadPhoto from "../components/PhotoImport";
+
 
 export default function TierlistPage() {
     // const draggables = [1, 2, 3, 4, 5];
@@ -26,6 +28,7 @@ export default function TierlistPage() {
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
             <div>
+                 <UploadPhoto onUpload={handleUpload} />
                 <TierlistContainer > 
                     <Tier id="1" items={items['1']}>
                     </Tier>
@@ -134,5 +137,13 @@ export default function TierlistPage() {
         setActiveId(null);
     }
     // End of AI-Assisted code
+
+    function handleUpload(imageUrl) {
+  setItems((prev) => ({
+    ...prev,
+    "0": [...prev["0"], imageUrl]
+  }));
+}
+
 
 }
