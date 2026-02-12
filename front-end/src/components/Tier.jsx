@@ -10,20 +10,22 @@ export default function Tier(props) {
 
     return (
         <SortableContext items={items}>
-            <span className="tier-label">
-                {props.label}
-            </span>
-            <span ref={setNodeRef} className="tier-middle">
-                {items.size === 0 ? "Drop here" : ""}
-                {items.map((id) => {
-                    return (
-                        <DraggableItem key={id} id={id} />
-                    )
-                })}
-            </span>
-            <span className="tier-settings">
-                Settings ⚙️
-            </span>
+            <div className="tier">
+                <div className="tier-label">
+                    {props.label}
+                </div>
+                <div ref={setNodeRef} className="tier-middle">
+                    {items.size === 0 ? "Drop here" : ""}
+                    {items.map((id) => {
+                        return (
+                            <DraggableItem key={id} id={id} />
+                        )
+                    })}
+                </div>
+                <div className="tier-settings">
+                    Settings ⚙️
+                </div>
+            </div>
         </SortableContext>
     );
 }

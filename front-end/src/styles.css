@@ -1,3 +1,7 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+
 .draggable-item {
     height: 60px;
     width: 60px;
@@ -8,9 +12,22 @@
     flex-wrap: wrap;
 }
 
-.tier-middle {
-    display: inline-block;
-    width: 500px;
-    height: 100px;
+.tier{
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    min-height: 80px;
     background-color: lightgray;
+    justify-items: center;
+}
+
+.tier-label {
+    grid-column: 1;
+}
+
+.tier-middle {
+    grid-column: 2;
+}
+
+.tier-settings {
+    grid-column: 3;
 }
