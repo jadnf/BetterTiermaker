@@ -1,5 +1,5 @@
 import { useDroppable } from "@dnd-kit/core";
-import { SortableContext } from "@dnd-kit/sortable"
+import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 import DraggableItem from "../components/DraggableItem.jsx";
 
 export default  function UnrankedItemsContainer(props) {
@@ -10,13 +10,12 @@ export default  function UnrankedItemsContainer(props) {
 
     return (
         <div>
-            <SortableContext items={items}>
+            <SortableContext id={props.id} items={items} strategy={rectSortingStrategy}>
                 <h3>Unranked Container</h3>
-                <div ref={setNodeRef}>
-                    {items.size === 0 ? "Drop here" : ""}
+                <div className="unranked-container" ref={setNodeRef}>
                     {items.map((id) => {
                         return (
-                            <DraggableItem key={id} id={id} />
+                            <DraggableItem key={id} id={id} imageUrl={props.imgUrlLookup[id]} />
                         )
                     })}
                 </div>

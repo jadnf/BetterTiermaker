@@ -5,7 +5,6 @@ body {
 .draggable-item {
     height: 60px;
     width: 60px;
-    background-color: lightgreen;
     justify-content: center;
     align-content: center;
     display: flex;
@@ -31,3 +30,27 @@ body {
 .tier-settings {
     grid-column: 3;
 }
+.draggable-item img {
+    object-fit: cover;
+    pointer-events: none;
+    height: 60px;
+    width: 60px;
+}
+
+.unranked-container {
+    display: inline-block;
+    width: 500px;
+    min-height: 100px;
+    background-color: lightgray;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 5px; 
+    padding: 5px;
+}
+
+.tiers-container {
+    display: flex;
+    flex-direction: column;
+}
+
