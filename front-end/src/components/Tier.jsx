@@ -10,9 +10,10 @@ export default function Tier(props) {
 
     return (
         <SortableContext items={items}>
-            <div className="tier">
-                <div className="tier-label">
+            <div className="tier rounded-container">
+                <div className="tier-label rounded-container">
                     {props.label}
+                    <input className="tier-input" type="text" placeholder="Tier Name" />
                 </div>
                 <div ref={setNodeRef} className="tier-middle">
                     {items.size === 0 ? "Drop here" : ""}
@@ -22,7 +23,7 @@ export default function Tier(props) {
                         )
                     })}
                 </div>
-                <div className="tier-settings">
+                <div className="tier-settings rounded-container">
                     Settings ⚙️
                 </div>
             </div>

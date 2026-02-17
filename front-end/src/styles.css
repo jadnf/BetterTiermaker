@@ -1,5 +1,19 @@
+:root {
+    --background-main: rgb(29, 30, 29);
+    --background-container: rgb(78, 81, 78);
+    --background-container-2: rgb(120, 128, 120);
+}
+
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: var(--background-main);
+    color: white;
+}
+
+.rounded-container {
+    border-radius: 10px;
+    margin: 2px;
+    padding: 5px;
 }
 
 .draggable-item {
@@ -15,12 +29,21 @@ body {
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
     min-height: 80px;
-    background-color: lightgray;
-    justify-items: center;
+    width: 75%;
+    background-color: var(--background-container);
+    place-items: center;
 }
 
+.tier-input {
+    background-color: transparent;
+    aspect-ratio: 1 / 1;
+    border-color: transparent;
+}
 .tier-label {
     grid-column: 1;
+    aspect-ratio: 1 / 1;
+    place-items: center;
+    
 }
 
 .tier-middle {
@@ -29,7 +52,15 @@ body {
 
 .tier-settings {
     grid-column: 3;
+    align-items: center;
+    place-items: center;
+    background-color: var(--background-container-2);
+    padding: 15pt;
+    margin: 0pt;
+    aspect-ratio: 1 / 1;
+    
 }
+
 .draggable-item img {
     object-fit: cover;
     pointer-events: none;
@@ -39,9 +70,9 @@ body {
 
 .unranked-container {
     display: inline-block;
-    width: 500px;
-    min-height: 100px;
-    background-color: lightgray;
+    width: 70%;
+    min-height: 80px;
+    background-color: var(--background-container);
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
