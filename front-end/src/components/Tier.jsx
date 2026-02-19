@@ -19,7 +19,7 @@ export default function Tier(props) {
                     {items.size === 0 ? "Drop here" : ""}
                     {items.map((id) => {
                         return (
-                            <DraggableItem key={id} id={id} />
+                            <DraggableItem key={id} id={id} imageUrl={props.imgUrlLookup[id]}/>
                         )
                     })}
                 </div>

@@ -11,7 +11,7 @@ import DraggableItem from "../components/DraggableItem.jsx";
 
 export default function TierlistPage() {
     // const draggables = [1, 2, 3, 4, 5];
-    const [tiers, setItems] = useState({
+    const [tiers, setTiers] = useState({
         '0' : [],
         '1' : [],
         '2' : [],
@@ -38,7 +38,7 @@ export default function TierlistPage() {
                         if(tierId == '0'){
                             return null;
                         }
-                        return(<Tier key={tierId} id={tierId} items={tiers[tierId]} title={tierId} />)
+                        return(<Tier key={tierId} id={tierId} items={tiers[tierId]} title={tierId} imgUrlLookup={imgUrlLookup} />)
                                     
                     })}
                 </TierlistContainer>
@@ -78,7 +78,7 @@ export default function TierlistPage() {
             return;
         }
 
-        setItems((prev) => {
+        setTiers((prev) => {
             const activeItems = prev[activeContainer];
             const overItems = prev[overContainer];
             const activeIndex = activeItems.indexOf(active.id);
@@ -131,7 +131,7 @@ export default function TierlistPage() {
         const overIndex = tiers[overContainer].indexOf(over.id);
 
         if (activeIndex !== overIndex) {
-            setItems((prev) => ({
+            setTiers((prev) => ({
                 ...prev,
                 [activeContainer]: arrayMove(prev[activeContainer], activeIndex, overIndex),
             }));
@@ -144,7 +144,7 @@ export default function TierlistPage() {
     function handleUpload(imageUrl) {
         let newItemId = "item-"+(itemCount+1);
 
-        setItems((prev) => ({
+        setTiers((prev) => ({
             ...prev,
             "0": [...prev["0"], newItemId]
         }));
@@ -158,7 +158,7 @@ export default function TierlistPage() {
     }
 
     function addNewTier() {
-        setItems((prev) => ({
+        setTiers((prev) => ({
             ...prev,
             [Object.keys(prev).length.toString()]: []
         }));
