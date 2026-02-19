@@ -11,7 +11,7 @@ import DraggableItem from "../components/DraggableItem.jsx";
 
 export default function TierlistPage() {
     // const draggables = [1, 2, 3, 4, 5];
-    const [items, setItems] = useState({
+    const [tiers, setItems] = useState({
         '0' : [],
         '1' : [],
         '2' : [],
@@ -33,15 +33,16 @@ export default function TierlistPage() {
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
             <div>
-                <TierlistContainer > 
-                    <Tier id="1" items={items['1']} imgUrlLookup={imgUrlLookup}>
-                    </Tier>
-                    <Tier id="2" items={items['2']} imgUrlLookup={imgUrlLookup}>
-                    </Tier>                    
-                    <Tier id="3" items={items['3']} imgUrlLookup={imgUrlLookup}>
-                    </Tier>                
+                <TierlistContainer tiers={tiers}> 
+                    {Object.keys(tiers).map((tierId) => {
+                        if(tierId == '0'){
+                            return null;
+                        }
+                        return(<Tier key={tierId} id={tierId} items={tiers[tierId]} title={tierId} />)
+                                    
+                    })}
                 </TierlistContainer>
-                <UnrankedItemsContainer id="0" items={items['0']} imgUrlLookup={imgUrlLookup}/>
+                <UnrankedItemsContainer id="0" items={tiers['0']} imgUrlLookup={imgUrlLookup}/>
                 
                 <UploadPhoto onUpload={handleUpload} />
 
@@ -53,10 +54,10 @@ export default function TierlistPage() {
     );
 
     function findContainer(id) {
-        if (id in items) {
+        if (id in tiers) {
             return id;
         }
-        return Object.keys(items).find((key) => items[key].includes(id));
+        return Object.keys(tiers).find((key) => tiers[key].includes(id));
     }
 
     function handleDragStart(event) {
@@ -106,7 +107,7 @@ export default function TierlistPage() {
                 ],
                 [overContainer]: [
                     ...prev[overContainer].slice(0, newIndex),
-                    items[activeContainer][activeIndex],
+                    tiers[activeContainer][activeIndex],
                     ...prev[overContainer].slice(newIndex, prev[overContainer].length)
                 ]
             };
@@ -126,8 +127,8 @@ export default function TierlistPage() {
             return;
         }
 
-        const activeIndex = items[activeContainer].indexOf(active.id);
-        const overIndex = items[overContainer].indexOf(over.id);
+        const activeIndex = tiers[activeContainer].indexOf(active.id);
+        const overIndex = tiers[overContainer].indexOf(over.id);
 
         if (activeIndex !== overIndex) {
             setItems((prev) => ({
@@ -155,4 +156,10 @@ export default function TierlistPage() {
 
         setItemCount(itemCount+1);
     }
-}
+
+    function addNewTier() {
+        setItems((prev) => ({
+            ...prev,
+            [Object.keys(prev).length.toString()]: []
+        }));
+    }}

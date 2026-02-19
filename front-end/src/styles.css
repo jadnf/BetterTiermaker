@@ -48,6 +48,8 @@ body {
 
 .tier-middle {
     grid-column: 2;
+    width: 100%;
+    height: 100%;
 }
 
 .tier-settings {

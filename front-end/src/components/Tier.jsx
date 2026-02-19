@@ -13,7 +13,7 @@ export default function Tier(props) {
             <div className="tier rounded-container">
                 <div className="tier-label rounded-container">
                     {props.label}
-                    <input className="tier-input" type="text" placeholder="Tier Name" />
+                    <input className="tier-input" type="text" value={props.title}/>
                 </div>
                 <div ref={setNodeRef} className="tier-middle">
                     {items.size === 0 ? "Drop here" : ""}
