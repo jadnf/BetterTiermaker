@@ -17,11 +17,13 @@ export default function TierlistPage() {
         '2' : [],
         '3' : []
     });
+    const [tierOrder, setTierOrder] = useState(['1', '2', '3']);
     const [imgUrlLookup, setImgUrlLookup] = useState({
         "item-1": 'https://placehold.co/100x100?text=1' 
     });
     const [itemCount, setItemCount] = useState(1);
     const [activeId, setActiveId] = useState(null);
+    const [activeType, setActiveType] = useState(null);
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -33,21 +35,13 @@ export default function TierlistPage() {
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
             <div>
-                <TierlistContainer tiers={tiers}> 
-                    {Object.keys(tiers).map((tierId) => {
-                        if(tierId == '0'){
-                            return null;
-                        }
-                        return(<Tier key={tierId} id={tierId} items={tiers[tierId]} title={tierId} imgUrlLookup={imgUrlLookup} />)
-                                    
-                    })}
-                </TierlistContainer>
-                <UnrankedItemsContainer id="0" items={tiers['0']} imgUrlLookup={imgUrlLookup}/>
+                <TierlistContainer tierOrder={tierOrder} tiers={tiers} imgUrlLookup={imgUrlLookup} />
+                <UnrankedItemsContainer id="0" items={tiers['0']} imgUrlLookup={imgUrlLookup} />
                 
                 <UploadPhoto onUpload={handleUpload} />
 
                 <DragOverlay>
-                    {activeId ? <DraggableItem id={activeId} imageUrl={imgUrlLookup[activeId]} /> : null}
+                    {dragOverlayLogic()}
                 </DragOverlay>
             </div>
         </DndContext>
@@ -62,6 +56,7 @@ export default function TierlistPage() {
 
     function handleDragStart(event) {
         setActiveId(event.active.id);
+        setActiveType(event.active.data.current?.type);
     }
     
     // following Drag / Drop methods created with the help of Gemini 3 Pro
@@ -70,6 +65,7 @@ export default function TierlistPage() {
         const overId = over?.id;
 
         if (!overId || active.id === overId) return;
+        if (active.data.current?.type === "Tier") return;
 
         const activeContainer = findContainer(active.id);
         const overContainer = findContainer(overId);
@@ -107,7 +103,7 @@ export default function TierlistPage() {
                 ],
                 [overContainer]: [
                     ...prev[overContainer].slice(0, newIndex),
-                    tiers[activeContainer][activeIndex],
+                    prev[activeContainer][activeIndex],
                     ...prev[overContainer].slice(newIndex, prev[overContainer].length)
                 ]
             };
@@ -116,6 +112,21 @@ export default function TierlistPage() {
 
     function handleDragEnd(event) {
         const { active, over } = event;
+        if (!over) return;
+
+        if (active.data.current?.type === "Tier") {
+            if (active.id !== over.id) {
+                setTierOrder((prev) => {
+                    const activeIndex = prev.indexOf(active.id);
+                    const overIndex = prev.indexOf(over.id);
+                    return arrayMove(prev, activeIndex, overIndex);
+                });
+            }
+            setActiveId(null);
+            setActiveType(null);
+            return;
+        }
+
         const activeContainer = findContainer(active.id);
         const overContainer = findContainer(over?.id);
 
@@ -138,8 +149,21 @@ export default function TierlistPage() {
         }
 
         setActiveId(null);
+        setActiveType(null);
     }
     // End of AI-Assisted code
+
+    function dragOverlayLogic() {
+        if (!activeId) return null;
+
+        if (activeType === "Item") {
+            return (<DraggableItem id={activeId} imageUrl={imgUrlLookup[activeId]} isOverlay={true} /> );
+        } 
+
+        if (activeType === "Tier") {
+            return ( <Tier key={activeId} id={activeId} items={tiers[activeId]} title={activeId} imgUrlLookup={imgUrlLookup} isOverlay={true} /> )            
+        }        
+    }
 
     function handleUpload(imageUrl) {
         let newItemId = "item-"+(itemCount+1);

@@ -1,6 +1,7 @@
 :root {
     --background-main: rgb(29, 30, 29);
     --background-container: rgb(78, 81, 78);
+    --background-drag-hover: rgb(71, 72, 71);
     --background-container-2: rgb(120, 128, 120);
 }
 
@@ -13,7 +14,7 @@ body {
 .rounded-container {
     border-radius: 10px;
     margin: 2px;
-    padding: 5px;
+    display: inline;
 }
 
 .draggable-item {
@@ -27,9 +28,9 @@ body {
 
 .tier{
     display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-columns: 1fr 5fr 1fr 0.5fr;
     min-height: 80px;
-    width: 75%;
+    width: 60vw;
     background-color: var(--background-container);
     place-items: center;
 }
@@ -43,7 +44,12 @@ body {
     grid-column: 1;
     aspect-ratio: 1 / 1;
     place-items: center;
-    
+}
+
+.tier-label input {
+    text-align: center;
+    width: 100%;
+    height: 100%;
 }
 
 .tier-middle {
@@ -63,6 +69,21 @@ body {
     margin: 0pt;
     aspect-ratio: 1 / 1;
     
+}
+
+.drag-handle {
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.drag-handle img :hover {
+    background-color: var(--background-drag-hover);
+}
+
+.drag-handle img {
+    width: 29px;
+    border-radius: 3px;
 }
 
 .draggable-item img {
