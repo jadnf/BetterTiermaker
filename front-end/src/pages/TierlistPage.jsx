@@ -7,6 +7,7 @@ import UnrankedItemsContainer from "../components/UnrankedItemsContainer";
 import Tier from "../components/Tier.jsx"; 
 import UploadPhoto from "../components/PhotoImport";
 import DraggableItem from "../components/DraggableItem.jsx";
+import AddNewTier from "../components/AddNewTier.jsx";
 
 
 export default function TierlistPage() {
@@ -49,6 +50,7 @@ export default function TierlistPage() {
                 <DragOverlay>
                     {activeId ? <DraggableItem id={activeId} imageUrl={imgUrlLookup[activeId]} /> : null}
                 </DragOverlay>
+                <AddNewTier onAdd={addNewTier} />
             </div>
         </DndContext>
     );
