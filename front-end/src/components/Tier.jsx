@@ -6,6 +6,7 @@ import {CSS} from "@dnd-kit/utilities";
 export default function Tier(props) {
     const items = props.items;
     const [title, setTitle] = useState(props.title);
+    const [lableColor, setLableColor] = useState();
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({ 
         id: props.id,
         data: { type: "Tier" }
@@ -18,14 +19,18 @@ export default function Tier(props) {
         width: props.isOverlay && props.overlayWidth ? props.overlayWidth : undefined,
     };
 
+    const tierlableStyle  ={
+        backgroundColor: lableColor 
+    }
+
     const dragHandleSyle = {
         cursor: props.isOverlay ? "grabbing" : "grab"
     }
 
     return (        
         <div ref={props.isOverlay ? undefined : setNodeRef} className="tier rounded-container" style={style}>
-            <div className="tier-label rounded-container">
-                <input name={props.id + "-label"} className="tier-input" type="text" value={title} onChange={(prev) => {setTitle(prev.value)}}/>
+            <div className="tier-label rounded-container" style={tierlableStyle}>
+                <input name={props.id + "-label"} className="tier-input" type="text" value={title} onChange={(prev) => {setTitle(prev.target.value)}}/>
             </div>
             <SortableContext items={items}>
                 <div  className="tier-middle">
@@ -38,6 +43,8 @@ export default function Tier(props) {
             </SortableContext>
             <div className="tier-settings rounded-container">
                 Settings ⚙️
+                <input type="color" value={lableColor} onChange={(prev) => setLableColor(prev.target.value)} />
+              
             </div>
             <div className="drag-handle rounded-container" style={dragHandleSyle} {...attributes} {...listeners}>
                 <img alt="drag handle" src={"/images/drag-handle.png"} draggable="false" />
