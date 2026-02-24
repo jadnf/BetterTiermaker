@@ -20,7 +20,8 @@ export default function TierlistPage() {
     });
     const [tierOrder, setTierOrder] = useState(['1', '2', '3']);
     const [imgUrlLookup, setImgUrlLookup] = useState({});
-    const [itemCount, setItemCount] = useState(1);
+    const [itemCount, setItemCount] = useState(0);
+    const [tierCount, setTierCount] = useState(3);
     const [activeId, setActiveId] = useState(null);
     const [activeType, setActiveType] = useState(null);
 
@@ -182,15 +183,24 @@ export default function TierlistPage() {
     }
 
     function addNewTier() {
+        let newTierId = tierCount + 1;
+        setTierCount((prev) => prev+1);
+
+        setTierOrder((prev) => {
+            return [...prev, newTierId.toString()];
+        });
+
         setTiers((prev) => ({
             ...prev,
-            [Object.keys(prev).length.toString()]: []
+            [newTierId.toString()]: []
         }));
     }
 
     function removeTier(id) {
         console.log("Remove Tier Triggered. Id: ", id);
+        console.log("Current TierOrder:", tierOrder);
         console.log("Current Tiers:", tiers);
+
         if (Array.isArray(tiers[id])) {
             console.log("Removing Tier: " + id);
             
