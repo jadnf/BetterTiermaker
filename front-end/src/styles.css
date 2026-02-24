@@ -29,7 +29,7 @@ body {
 
 .tier{
     display: grid;
-    grid-template-columns: 1fr 5fr 1fr 0.5fr;
+    grid-template-columns: 1fr 5fr 1fr 0.4fr 0.7fr;
     min-height: 80px;
     width: 60vw;
     background-color: var(--background-container);
@@ -67,10 +67,36 @@ body {
     align-items: center;
     place-items: center;
     background-color: var(--background-container-2);
-    padding: 15pt;
+    padding: 5pt;
     margin: 0pt;
     aspect-ratio: 1 / 1;
     
+}
+
+.remove-tier-div {
+    min-width: 30px;
+    min-height: 60px;
+    align-content: center;
+    justify-content: center;
+    margin-left: 10pt;
+    border-radius: 5px;
+    display: flex;
+}
+
+.remove-tier-button {
+    display: none;
+}
+
+.remove-tier-div:hover {
+    background-color: var(--background-drag-hover);
+}
+
+.remove-tier-div:hover .remove-tier-button {
+    display: block;
+    background-color: transparent;
+    color: rgb(152, 156, 152);
+    text-align: center;
+    border: none;
 }
 
 .drag-handle {

@@ -46,6 +46,9 @@ export default function Tier(props) {
                 <input type="color" value={lableColor} onChange={(prev) => setLableColor(prev.target.value)} />
               
             </div>
+            <div className="remove-tier-div">
+                <button className="remove-tier-button" onClick={() => props.removeTier(props.id)}>X</button>
+            </div>
             <div className="drag-handle rounded-container" style={dragHandleSyle} {...attributes} {...listeners}>
                 <img alt="drag handle" src={"/images/drag-handle.png"} draggable="false" />
             </div>            

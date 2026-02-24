@@ -19,9 +19,7 @@ export default function TierlistPage() {
         '3' : []
     });
     const [tierOrder, setTierOrder] = useState(['1', '2', '3']);
-    const [imgUrlLookup, setImgUrlLookup] = useState({
-        "item-1": 'https://placehold.co/100x100?text=1' 
-    });
+    const [imgUrlLookup, setImgUrlLookup] = useState({});
     const [itemCount, setItemCount] = useState(1);
     const [activeId, setActiveId] = useState(null);
     const [activeType, setActiveType] = useState(null);
@@ -36,7 +34,7 @@ export default function TierlistPage() {
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
             <div>
-                <TierlistContainer tierOrder={tierOrder} tiers={tiers} imgUrlLookup={imgUrlLookup} />
+                <TierlistContainer tierOrder={tierOrder} tiers={tiers} imgUrlLookup={imgUrlLookup} removeTier={removeTier}/>
                 <UnrankedItemsContainer id="0" items={tiers['0']} imgUrlLookup={imgUrlLookup} />
                 
                 <UploadPhoto onUpload={handleUpload} />
@@ -188,4 +186,28 @@ export default function TierlistPage() {
             ...prev,
             [Object.keys(prev).length.toString()]: []
         }));
-    }}
+    }
+
+    function removeTier(id) {
+        console.log("Remove Tier Triggered. Id: ", id);
+        console.log("Current Tiers:", tiers);
+        if (Array.isArray(tiers[id])) {
+            console.log("Removing Tier: " + id);
+            
+            console.log("Moving items in array to UnrankedContainer")
+            setTiers((prevTiers) => {
+                const removedTierItems= prevTiers[id] || [];
+
+                const { [id]: removedTier, ...remainingTiers } = prevTiers;
+
+                return {
+                    ...remainingTiers,
+                    "0": [...remainingTiers["0"], ...removedTierItems]
+                };
+
+            });
+            setTierOrder((prev) => prev.filter((tierId) => tierId !== id));
+        }
+    }
+}
+
