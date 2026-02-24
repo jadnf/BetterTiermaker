@@ -12,6 +12,7 @@ export default function TierlistContainer(props) {
         <div className="tiers-container">
             <h2>Tierlist Container</h2>
             <SortableContext items={tierOrder} strategy={verticalListSortingStrategy}>
+                
                 {tierOrder.map((tierId) => {
                     
                     return(<Tier key={tierId} id={tierId} items={tiers[tierId]} title={tierId} imgUrlLookup={imgUrlLookup}/>)

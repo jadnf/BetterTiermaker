@@ -188,4 +188,6 @@ export default function TierlistPage() {
             ...prev,
             [Object.keys(prev).length.toString()]: []
         }));
+        setTierOrder(tierOrder.push(Object.keys(tiers).length.toString()));
+        console.log(tiers);
     }}
