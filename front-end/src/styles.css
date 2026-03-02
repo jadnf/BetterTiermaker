@@ -86,6 +86,10 @@ body {
     border-radius: 3px;
 }
 
+.draggable-item {
+    place-items: center;
+}
+
 .draggable-item img {
     object-fit: cover;
     pointer-events: none;
@@ -110,3 +114,11 @@ body {
     flex-direction: column;
 }
 
+.item-settings {
+    position: absolute;
+    opacity: 0;
+}
+
+.item-settings:hover {
+    opacity: 1;
+}

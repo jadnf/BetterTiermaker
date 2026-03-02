@@ -18,6 +18,7 @@ export default  function DraggableItem(props) {
         <div className="draggable-item" style={style} ref={props.isOverlay ? undefined : setNodeRef} {...listeners} {...attributes}>
             
             <img alt={props.id} src={props.imageUrl}></img>
+            <div className="item-settings">⚙️</div>
         </div>
     );
 }
