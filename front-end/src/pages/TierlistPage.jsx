@@ -19,8 +19,21 @@ export default function TierlistPage() {
         '3' : []
     });
     const [tierOrder, setTierOrder] = useState(['1', '2', '3']);
+    const [tiersData, setTiersData] = useState({
+        '1' : {
+            title : 'S',
+            labelColor: "#c73329"
+        },
+        '2' : {
+            title : 'A',
+            labelColor: "#509d2f"
+        },
+        '3' : {
+            title : 'B',
+            labelColor: "#afe222"
+        }
+    });
     const [itemsData, setItemsData] = useState({});
-   
     const [tierCount, setTierCount] = useState(3);
     const [activeId, setActiveId] = useState(null);
     const [activeType, setActiveType] = useState(null);
@@ -35,7 +48,7 @@ export default function TierlistPage() {
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
             <div>
-                <TierlistContainer tierOrder={tierOrder} tiers={tiers} itemsData={itemsData} removeTier={removeTier} updateItemLabel={updateItemLabel} />
+                <TierlistContainer tierOrder={tierOrder} tiersData={tiersData} setTiersData={setTiersData} tiers={tiers} itemsData={itemsData} removeTier={removeTier} updateItemLabel={updateItemLabel} />
                 <UnrankedItemsContainer id="0" items={tiers['0']} itemsData={itemsData} />
                 
                 <UploadPhoto onUpload={handleUpload} />
@@ -162,7 +175,7 @@ export default function TierlistPage() {
         } 
 
         if (activeType === "Tier") {
-            return ( <Tier key={activeId} id={activeId} items={tiers[activeId]} title={activeId} imgUrlLookup={itemsData} isOverlay={true} /> )            
+            return ( <Tier key={activeId} id={activeId} items={tiers[activeId]} tierData={tiersData[activeId]} imgUrlLookup={itemsData} isOverlay={true} /> )            
         }        
     }
 
