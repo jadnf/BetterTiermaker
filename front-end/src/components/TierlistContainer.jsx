@@ -5,8 +5,9 @@ export default function TierlistContainer(props) {
 
     const tierOrder = props.tierOrder;
     const tiers = props.tiers;
-    const imgUrlLookup = props.imgUrlLookup;
+    const itemsData = props.itemsData;
     const removeTier = props.removeTier;
+    const updateItemLabel = props.updateItemLabel;
 
     return (
         <div className="tiers-container">
@@ -14,7 +15,7 @@ export default function TierlistContainer(props) {
             <SortableContext items={tierOrder} strategy={verticalListSortingStrategy}>
                 {tierOrder.map((tierId) => {
                     
-                    return(<Tier key={tierId} id={tierId} items={tiers[tierId]} title={tierId} removeTier={removeTier} imgUrlLookup={imgUrlLookup}/>)
+                    return(<Tier key={tierId} id={tierId} items={tiers[tierId]} title={tierId} removeTier={removeTier} itemsData={itemsData} updateItemLabel={updateItemLabel}/>)
                                         
                 })}
             </SortableContext>

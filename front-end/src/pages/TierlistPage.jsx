@@ -19,8 +19,8 @@ export default function TierlistPage() {
         '3' : []
     });
     const [tierOrder, setTierOrder] = useState(['1', '2', '3']);
-    const [imgUrlLookup, setImgUrlLookup] = useState({});
-    const [itemCount, setItemCount] = useState(0);
+    const [itemsData, setItemsData] = useState({});
+   
     const [tierCount, setTierCount] = useState(3);
     const [activeId, setActiveId] = useState(null);
     const [activeType, setActiveType] = useState(null);
@@ -35,8 +35,8 @@ export default function TierlistPage() {
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
             <div>
-                <TierlistContainer tierOrder={tierOrder} tiers={tiers} imgUrlLookup={imgUrlLookup} removeTier={removeTier}/>
-                <UnrankedItemsContainer id="0" items={tiers['0']} imgUrlLookup={imgUrlLookup} />
+                <TierlistContainer tierOrder={tierOrder} tiers={tiers} itemsData={itemsData} removeTier={removeTier} updateItemLabel={updateItemLabel} />
+                <UnrankedItemsContainer id="0" items={tiers['0']} itemsData={itemsData} />
                 
                 <UploadPhoto onUpload={handleUpload} />
 
@@ -158,29 +158,47 @@ export default function TierlistPage() {
         if (!activeId) return null;
 
         if (activeType === "Item") {
-            return (<DraggableItem id={activeId} imageUrl={imgUrlLookup[activeId]} isOverlay={true} /> );
+            return (<DraggableItem id={activeId} imageUrl={itemsData[activeId]} isOverlay={true} /> );
         } 
 
         if (activeType === "Tier") {
-            return ( <Tier key={activeId} id={activeId} items={tiers[activeId]} title={activeId} imgUrlLookup={imgUrlLookup} isOverlay={true} /> )            
+            return ( <Tier key={activeId} id={activeId} items={tiers[activeId]} title={activeId} imgUrlLookup={itemsData} isOverlay={true} /> )            
         }        
     }
 
-    function handleUpload(imageUrl) {
-        let newItemId = "item-"+(itemCount+1);
+    function handleUpload(imageUrl, fileName= "") {
+         const newItemId = crypto.randomUUID();
 
         setTiers((prev) => ({
             ...prev,
             "0": [...prev["0"], newItemId]
         }));
 
-        setImgUrlLookup((prev) => ({
-            ...prev,
-            [newItemId]: imageUrl
-        }))
+         setItemsData((prev) => ({
+        ...prev,
+        [newItemId]: {
+            id: newItemId,
+            imageUrl,
+            label: fileName || newItemId
+        }
+    }));
 
-        setItemCount(itemCount+1);
+        
     }
+
+    function updateItemLabel(id, newLabel) {
+    setItemsData(prev => {
+        if (!prev[id]) return prev;
+
+        return {
+            ...prev,
+            [id]: {
+                ...prev[id],
+                label: newLabel
+            }
+        };
+    });
+}
 
     function addNewTier() {
         let newTierId = tierCount + 1;

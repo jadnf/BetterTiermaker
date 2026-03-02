@@ -36,7 +36,7 @@ export default function Tier(props) {
                 <div  className="tier-middle">
                     {items.map((id) => {
                         return (
-                            <DraggableItem key={id} id={id} imageUrl={props.imgUrlLookup[id]}/>
+                            <DraggableItem key={id} id={id} imageUrl={props.itemsData?.[id]?.imageUrl} label={props.itemsData?.[id]?.label} updateLabel={props.updateItemLabel} />
                         )
                     })}
                 </div>
