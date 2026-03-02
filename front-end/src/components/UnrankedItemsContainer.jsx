@@ -15,7 +15,7 @@ export default  function UnrankedItemsContainer(props) {
                 <div className="unranked-container rounded-container" ref={setNodeRef}>
                     {items.map((id) => {
                         return (
-                            <DraggableItem key={id} id={id} imageUrl={props.imgUrlLookup[id]} />
+                            <DraggableItem key={id} id={id} imageUrl={props.itemsData?.[id]?.imageUrl} />
                         )
                     })}
                 </div>
