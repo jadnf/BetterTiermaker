@@ -1,4 +1,5 @@
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
+import { useState } from "react";
 import DraggableItem from "./DraggableItem";
 import {CSS} from "@dnd-kit/utilities";
 
@@ -15,6 +16,7 @@ export default function Tier(props) {
         id: id,
         data: { type: "Tier" }
     });
+    const [showSettings, setShowSettings] = useState(false);
 
     const style = {
         transform: props.isOverlay ? undefined : CSS.Translate.toString(transform),
@@ -28,12 +30,16 @@ export default function Tier(props) {
     }
 
     const dragHandleSyle = {
-        cursor: props.isOverlay ? "grabbing" : "grab"
+        cursor: props.isOverlay ? "grabbing" : "grab",
+        backgroundImage: `linear-gradient(90deg, transparent 80%, ${labelColor} 100%)`
     }
 
     return (        
         <div ref={props.isOverlay ? undefined : setNodeRef} className="tier rounded-container" style={style}>
-            <div className="tier-label rounded-container" style={tierlableStyle}>
+            <div className="drag-handle" style={dragHandleSyle} {...attributes} {...listeners}>
+                <img alt="drag handle" src={"/images/drag-handle.png"} draggable="false" />
+            </div>
+            <div className="tier-label" style={tierlableStyle}>
                 <input name={id + "-label"} className="tier-input" type="text" value={title} onChange={(prev) => {handleTitleChange(id, prev.target.value)}}/>
             </div>
             <SortableContext items={items}>
@@ -45,17 +51,20 @@ export default function Tier(props) {
                     })}
                 </div>
             </SortableContext>
-            <div className="tier-settings rounded-container">
-                Settings ⚙️
-                <input type="color" value={labelColor} onChange={(prev) => handleLabelColorChange(id, prev.target.value)} />
+            <div className="tier-settings-container rounded-container">
+                <div className="settings-access">
+                    <button className="settings-button" onClick={() => setShowSettings(!showSettings)}>⚙️</button>
+                </div>
+                {showSettings && (
+                    <div className="tier-settings">
+                        <input type="color" value={labelColor} onChange={(prev) => handleLabelColorChange(id, prev.target.value)} className="color-input"/>
+                        <button className="remove-tier-button" onClick={() => props.removeTier(id)}>X</button>
+                    </div>
+                )}
               
             </div>
-            <div className="remove-tier-div">
-                <button className="remove-tier-button" onClick={() => props.removeTier(id)}>X</button>
-            </div>
-            <div className="drag-handle rounded-container" style={dragHandleSyle} {...attributes} {...listeners}>
-                <img alt="drag handle" src={"/images/drag-handle.png"} draggable="false" />
-            </div>            
+            
+                        
         </div>
     );
 }
