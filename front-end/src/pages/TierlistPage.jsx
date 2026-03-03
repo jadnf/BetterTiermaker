@@ -8,6 +8,7 @@ import Tier from "../components/Tier.jsx";
 import UploadPhoto from "../components/PhotoImport";
 import DraggableItem from "../components/DraggableItem.jsx";
 import AddNewTier from "../components/AddNewTier.jsx";
+import {saveTierListToJSONFile, loadTierListFromJSONFIle} from "../utils/JSONUtils.js";
 
 
 export default function TierlistPage() {
@@ -57,6 +58,8 @@ export default function TierlistPage() {
                     {dragOverlayLogic()}
                 </DragOverlay>
                 <AddNewTier onAdd={addNewTier} />
+                <button onClick={() => saveTierListToJSONFile(tiers, tierOrder, tiersData, itemsData, tierCount)}>Download Tierlist</button>
+                <input type="file" accept="application/json,.json" onChange={handleLoadTierlist} />
             </div>
         </DndContext>
     );
@@ -225,6 +228,14 @@ export default function TierlistPage() {
             ...prev,
             [newTierId.toString()]: []
         }));
+
+        setTiersData((prev) => ({
+            ...prev,
+            [newTierId.toString()]: {
+                title: newTierId,
+                labelColor: "#87877f"
+            }
+        }));
     }
 
     function removeTier(id) {
@@ -249,6 +260,12 @@ export default function TierlistPage() {
             });
             setTierOrder((prev) => prev.filter((tierId) => tierId !== id));
         }
+    }
+
+    function handleLoadTierlist(e) {
+        let file = e.target.files[0];
+        if (!file) return;
+        loadTierListFromJSONFIle(file, setTiers, setTierOrder, setTiersData, setItemsData, setTierCount);
     }
 }
 
