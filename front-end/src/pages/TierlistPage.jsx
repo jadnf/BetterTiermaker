@@ -49,7 +49,7 @@ export default function TierlistPage() {
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
             <div>
-                <TierlistContainer tierOrder={tierOrder} tiersData={tiersData} setTiersData={setTiersData} tiers={tiers} itemsData={itemsData} removeTier={removeTier} updateItemLabel={updateItemLabel} />
+                <TierlistContainer tierOrder={tierOrder} tiersData={tiersData} setTiersData={setTiersData} tiers={tiers} itemsData={itemsData} removeTier={removeTier} updateItemLabel={updateItemLabel} deleteItem={deleteItem} />
                 <UnrankedItemsContainer id="0" items={tiers['0']} itemsData={itemsData} />
                 
                 <UploadPhoto onUpload={handleUpload} />
@@ -181,6 +181,23 @@ export default function TierlistPage() {
             return ( <Tier key={activeId} id={activeId} items={tiers[activeId]} tierData={tiersData[activeId]} imgUrlLookup={itemsData} isOverlay={true} /> )            
         }        
     }
+
+    function deleteItem(itemId) {
+    setTiers((prev) => {
+        const updated = {};
+
+        for (const tierId in prev) {
+            updated[tierId] = prev[tierId].filter((id) => id !== itemId);
+        }
+
+        return updated;
+    });
+
+    setItemsData((prev) => {
+        const { [itemId]: removed, ...remaining } = prev;
+        return remaining;
+    });
+}
 
     function handleUpload(imageUrl, fileName= "") {
          const newItemId = crypto.randomUUID();
