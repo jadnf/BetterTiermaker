@@ -20,19 +20,33 @@ export default  function DraggableItem(props) {
     };
 
     return (
-        <div className="draggable-item" style={style} ref={props.isOverlay ? undefined : setNodeRef} {...listeners} {...attributes}>
-             <div {...listeners} {...attributes}>
-            <img alt={props.id} src={props.imageUrl}  />
-            </div>
-            
+        <div className="draggable-item" style={style} ref={props.isOverlay ? undefined : setNodeRef}>
+    <button className="delete-item" onClick={(e) => {e.stopPropagation(); props.deleteItem?.(props.id);}}>
+        ✕
+    </button>
 
-            <div className="item-label">
-                {isEditing ? (
-                    <input value={label} onChange={(e) => setLabel(e.target.value)} onBlur={() => props.updateLabel?.(props.id, label)} onKeyDown={(e) => {if (e.key === "Enter"){props.updateLabel?.(props.id,label); setIsEditing(false);}}} onClick={(e) => e.stopPropagation()} autoFocus />
-                ) : (
-                    <span onClick={(e) => { e.stopPropagation(); setIsEditing(true);}}>{label}</span>
-                )}
-            </div>
-        </div>
+    <div {...listeners} {...attributes}>
+        <img alt={props.id} src={props.imageUrl} />
+    </div>
+
+    <div className="item-label"> {isEditing ? (
+            <input value={label} onChange={(e) => setLabel(e.target.value)} onBlur={() => props.updateLabel?.(props.id, label)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        props.updateLabel?.(props.id, label);
+                        setIsEditing(false);
+                    }
+                }}
+                onClick={(e) => e.stopPropagation()}
+                autoFocus
+            />
+        ) : (
+            <span onClick={(e) => {e.stopPropagation(); setIsEditing(true);}}>
+                {label}
+            </span>
+        )}
+    </div>
+</div>
     );
 }
+

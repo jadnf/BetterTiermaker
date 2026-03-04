@@ -50,8 +50,8 @@ export default function TierlistPage() {
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
             <div>
-                <AddNewTier onAdd={addNewTier} />
-                <TierlistContainer tierOrder={tierOrder} tiersData={tiersData} setTiersData={setTiersData} tiers={tiers} itemsData={itemsData} removeTier={removeTier} updateItemLabel={updateItemLabel} handleNameChange={handleNameChange} name={name} />
+                <TierlistContainer tierOrder={tierOrder} tiersData={tiersData} setTiersData={setTiersData} tiers={tiers} itemsData={itemsData} removeTier={removeTier} updateItemLabel={updateItemLabel} deleteItem={deleteItem} />
+                <UnrankedItemsContainer id="0" items={tiers['0']} itemsData={itemsData} />
                 
                 <DragOverlay>
                     {dragOverlayLogic()}
@@ -199,6 +199,22 @@ export default function TierlistPage() {
     function handleNameChange(e) {
         setName(e.target.value);
     }
+    function deleteItem(itemId) {
+    setTiers((prev) => {
+        const updated = {};
+
+        for (const tierId in prev) {
+            updated[tierId] = prev[tierId].filter((id) => id !== itemId);
+        }
+
+        return updated;
+    });
+
+    setItemsData((prev) => {
+        const { [itemId]: removed, ...remaining } = prev;
+        return remaining;
+    });
+}
 
     function handleUpload(imageUrl, fileName= "") {
          const newItemId = crypto.randomUUID();
