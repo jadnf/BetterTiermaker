@@ -2,6 +2,7 @@ import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import Tier from "../components/Tier.jsx"; 
 export default function TierlistContainer(props) {
 
+    const name = props.name;
     const tierOrder = props.tierOrder;
     const tiers = props.tiers;
     const itemsData = props.itemsData;
@@ -38,14 +39,16 @@ export default function TierlistContainer(props) {
 
     return (
         <div className="tiers-container">
-            <h2>Tierlist Container</h2>
-            <SortableContext items={tierOrder} strategy={verticalListSortingStrategy}>
-                
-                {tierOrder.map((tierId) => {
-                    return(<Tier key={tierId} id={tierId} items={tiers[tierId]} removeTier={removeTier} tierData={tiersData[tierId]} handleTitleChange={handleTitleChange} handleLabelColorChange={handleLabelColorChange} itemsData={itemsData} updateItemLabel={updateItemLabel}/>)
+            <input type="text" value={name} onChange={props.handleNameChange} className="tierlist-name-input"/>
+            <div>
+                <SortableContext items={tierOrder} strategy={verticalListSortingStrategy}>
+                    {tierOrder.map((tierId) => {
+                        return(<Tier key={tierId} id={tierId} items={tiers[tierId]} removeTier={removeTier} tierData={tiersData[tierId]} handleTitleChange={handleTitleChange} handleLabelColorChange={handleLabelColorChange} itemsData={itemsData} updateItemLabel={updateItemLabel}/>)
                                         
-                })}
-            </SortableContext>
+                    })}
+                </SortableContext>
+            </div>
+            
         </div>
     );
 }

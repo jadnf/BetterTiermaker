@@ -13,6 +13,7 @@ import {saveTierListToJSONFile, loadTierListFromJSONFIle} from "../utils/JSONUti
 
 export default function TierlistPage() {
     // const draggables = [1, 2, 3, 4, 5];
+    const [name, setName] = useState("My Tierlist");
     const [tiers, setTiers] = useState({
         '0' : [],
         '1' : [],
@@ -49,17 +50,30 @@ export default function TierlistPage() {
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
             <div>
-                <TierlistContainer tierOrder={tierOrder} tiersData={tiersData} setTiersData={setTiersData} tiers={tiers} itemsData={itemsData} removeTier={removeTier} updateItemLabel={updateItemLabel} />
-                <UnrankedItemsContainer id="0" items={tiers['0']} itemsData={itemsData} />
+                <AddNewTier onAdd={addNewTier} />
+                <TierlistContainer tierOrder={tierOrder} tiersData={tiersData} setTiersData={setTiersData} tiers={tiers} itemsData={itemsData} removeTier={removeTier} updateItemLabel={updateItemLabel} handleNameChange={handleNameChange} name={name} />
                 
-                <UploadPhoto onUpload={handleUpload} />
-
                 <DragOverlay>
                     {dragOverlayLogic()}
                 </DragOverlay>
-                <AddNewTier onAdd={addNewTier} />
-                <button onClick={() => saveTierListToJSONFile(tiers, tierOrder, tiersData, itemsData, tierCount)}>Download Tierlist</button>
-                <input type="file" accept="application/json,.json" onChange={handleLoadTierlist} />
+                <div className="utility-container">
+                    <UnrankedItemsContainer id="0" items={tiers['0']} itemsData={itemsData} />
+                    <div className="file-stuff">
+                        <div>
+                            <h4>Import image</h4>
+                            <UploadPhoto onUpload={handleUpload} />
+                        </div>
+                        <div>
+                            <h4>Save to JSON</h4> <br></br>
+                            <button onClick={() => saveTierListToJSONFile(name, tiers, tierOrder, tiersData, itemsData, tierCount)}>Download Tierlist</button>
+                        </div>
+                        <div>
+                            <h4>Load from JSON</h4> <br></br>
+                            <input type="file" accept="application/json,.json" onChange={handleLoadTierlist} />
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </DndContext>
     );
@@ -182,6 +196,10 @@ export default function TierlistPage() {
         }        
     }
 
+    function handleNameChange(e) {
+        setName(e.target.value);
+    }
+
     function handleUpload(imageUrl, fileName= "") {
          const newItemId = crypto.randomUUID();
 
@@ -265,7 +283,7 @@ export default function TierlistPage() {
     function handleLoadTierlist(e) {
         let file = e.target.files[0];
         if (!file) return;
-        loadTierListFromJSONFIle(file, setTiers, setTierOrder, setTiersData, setItemsData, setTierCount);
+        loadTierListFromJSONFIle(file, setName, setTiers, setTierOrder, setTiersData, setItemsData, setTierCount);
     }
 }
 

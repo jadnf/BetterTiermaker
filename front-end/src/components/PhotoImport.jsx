@@ -15,8 +15,6 @@ function UploadPhoto({ onUpload }) {
 
   return (
     <div>
-      <h2>This is the Photo Import</h2>
-
       <input type="file" multiple accept="image/*" onChange={handleFileChange} />
     </div>
   );

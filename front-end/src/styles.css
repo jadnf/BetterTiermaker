@@ -3,12 +3,65 @@
     --background-container: rgb(64, 64, 64);
     --background-drag-hover: rgb(91, 91, 91);
     --background-container-2: rgb(105, 105, 105);
+    --background-container-3: rgb(125, 125, 125);
 }
 
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: var(--background-main);
     color: white;
+    width: 60vw;
+}
+
+h3{
+    background-color: var(--background-container);
+    display: inline;
+    width: max-content;
+    margin: 5px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+h4{
+    background-color: var(--background-container);
+    display: inline;
+    width: max-content;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+button{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 2px;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    background-color: var(--background-container-2);
+}
+
+input::file-selector-button {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 2px;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    background-color: var(--background-container-2);
+}
+
+.file-stuff {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 2px;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    font-weight: bold;
 }
 
 .rounded-container {
@@ -32,11 +85,12 @@ body {
 
 .tier{
     display: grid;
-    grid-template-columns: 50px 100px 1fr 100px;
+    grid-template-columns: 75px 100px 1fr 100px;
     height: 100px;
     width: 60vw;
     background-color: var(--background-container);
 }
+
 .drag-handle {
     grid-column: 1;
     display: flex;
@@ -45,6 +99,10 @@ body {
     align-items: center;
     justify-content: center;
     
+}
+
+.drag-handle img {
+    width: 15px;
 }
 
 .tier-input {
@@ -144,15 +202,11 @@ body {
 }
 
 .unranked-container {
-    display: inline-block;
+    height: 100px;
     width: 60vw;
-    min-height: 100px;
-    background-color: var(--background-container);
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    gap: 5px; 
-    padding: 5px;
+    flex-direction: column;
+    background-color: var(--background-container);
 }
 
 .tiers-container {
@@ -160,9 +214,34 @@ body {
     flex-direction: column;
 }
 
+.utility-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-stuff {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .item-settings {
-    position: absolute;
     opacity: 0;
+}
+
+.tierlist-name-input {
+    background-color: var(--background-container);
+    display: inline;
+    width: max-content;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 2px;
+    border-radius: 4px;
+    font-size: 1.17em;
+    color: white;
+    border: none;
+    font-weight: bold;
+    field-sizing: content; /*this works on everything except firefox for some reason*/
 }
 
 .item-settings:hover {

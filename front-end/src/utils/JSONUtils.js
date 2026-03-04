@@ -18,7 +18,7 @@ const objectUrlToBase64 = (objectUrl) => {
 };
 // End of gemini code
 
-const saveTierListToJSONFile = async (tiers, tierOrder, tiersData, itemsData, tierCount) => {
+const saveTierListToJSONFile = async (name, tiers, tierOrder, tiersData, itemsData, tierCount) => {
     let encodedItemsData = JSON.parse(JSON.stringify(itemsData));
     const keys = Object.keys(encodedItemsData);
     // Promise logic done with the help of Gemini
@@ -36,6 +36,7 @@ const saveTierListToJSONFile = async (tiers, tierOrder, tiersData, itemsData, ti
     // End of Gemini code
 
     let jsonData = {
+        name: name,
         tiers: tiers,
         tierOrder: tierOrder,
         tiersData: tiersData,
@@ -53,7 +54,7 @@ const saveTierListToJSONFile = async (tiers, tierOrder, tiersData, itemsData, ti
     URL.revokeObjectURL(url);
 }
 
-const loadTierListFromJSONFIle = async (file, setTiers, setTierOrder, setTiersData, setItemsData, setTierCount) => {
+const loadTierListFromJSONFIle = async (file, setName, setTiers, setTierOrder, setTiersData, setItemsData, setTierCount) => {
     let fileText;
 
     if (file instanceof File) {
@@ -69,6 +70,7 @@ const loadTierListFromJSONFIle = async (file, setTiers, setTierOrder, setTiersDa
         return;
     }
 
+    setName(fileObject?.name);
     setTiers(fileObject?.tiers);
     setTierOrder(fileObject?.tierOrder);
     setTiersData(fileObject?.tiersData);

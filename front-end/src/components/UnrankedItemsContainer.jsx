@@ -9,17 +9,15 @@ export default  function UnrankedItemsContainer(props) {
     });
 
     return (
-        <div>
-            <SortableContext id={props.id} items={items} strategy={rectSortingStrategy}>
-                <h3>Unranked Container</h3>
-                <div className="unranked-container rounded-container" ref={setNodeRef}>
-                    {items.map((id) => {
-                        return (
-                            <DraggableItem key={id} id={id} imageUrl={props.itemsData?.[id]?.imageUrl} />
-                        )
-                    })}
-                </div>
-            </SortableContext>
-        </div>
+        <SortableContext id={props.id} items={items} strategy={rectSortingStrategy}>
+            <h4>Unranked</h4>
+            <div className="unranked-container rounded-container" ref={setNodeRef}>
+                {items.map((id) => {
+                    return (
+                        <DraggableItem key={id} id={id} imageUrl={props.itemsData?.[id]?.imageUrl} />
+                    )
+                })}
+            </div>
+        </SortableContext>
     );
 }
