@@ -60,16 +60,16 @@ export default function TierlistPage() {
                     <UnrankedItemsContainer id="0" items={tiers['0']} itemsData={itemsData} />
                     <div className="file-stuff">
                         <div>
-                            <h4>Import image</h4>
+                            <h5>Import image</h5>
                             <UploadPhoto onUpload={handleUpload} />
                         </div>
                         <div>
-                            <h4>Save to JSON</h4> <br></br>
-                            <button onClick={() => saveTierListToJSONFile(name, tiers, tierOrder, tiersData, itemsData, tierCount)}>Download Tierlist</button>
+                            <h5>Load from JSON</h5> <br></br>
+                            <input type="file" accept="application/json,.json" onChange={handleLoadTierlist} />
                         </div>
                         <div>
-                            <h4>Load from JSON</h4> <br></br>
-                            <input type="file" accept="application/json,.json" onChange={handleLoadTierlist} />
+                            <h5>Save to JSON</h5> <br></br>
+                            <button onClick={() => saveTierListToJSONFile(name, tiers, tierOrder, tiersData, itemsData, tierCount)}>Download Tierlist</button>
                         </div>
                     </div>
                 </div>
@@ -196,9 +196,6 @@ export default function TierlistPage() {
         }        
     }
 
-    function handleNameChange(e) {
-        setName(e.target.value);
-    }
     function deleteItem(itemId) {
     setTiers((prev) => {
         const updated = {};

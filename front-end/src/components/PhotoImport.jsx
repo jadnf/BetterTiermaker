@@ -15,7 +15,7 @@ function UploadPhoto({ onUpload }) {
 
   return (
     <div>
-      <input type="file" multiple accept="image/*" onChange={handleFileChange} />
+      <input type="file" multiple accept="image/*" onChange={handleFileChange} className="image-input" />
     </div>
   );
 }

@@ -13,6 +13,8 @@ body {
     width: 60vw;
 }
 
+/*this is so ass*/
+
 h3{
     background-color: var(--background-container);
     display: inline;
@@ -32,14 +34,24 @@ h4{
     border-radius: 4px;
 }
 
+h5{
+    background-color: var(--background-container);
+    display: inline;
+    width: max-content;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
 button{
     margin-top: 5px;
     margin-bottom: 5px;
-    padding: 2px;
     border-radius: 4px;
     border: none;
     color: white;
     font-weight: bold;
+    font-size: 1.17em;
     background-color: var(--background-container-2);
 }
 
@@ -51,7 +63,9 @@ input::file-selector-button {
     border: none;
     color: white;
     font-weight: bold;
+    font-size: 1.17em;
     background-color: var(--background-container-2);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .file-stuff {
@@ -194,6 +208,7 @@ input::file-selector-button {
     height: 50px;
     border: none;
     border-width: 0px;
+    outline: none;
     margin: 0;
     padding: 0;
     border-top-left-radius: 4px;
@@ -219,11 +234,13 @@ input::file-selector-button {
 
 .drag-handle img {
     width: 29px;
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 .draggable-item {
     place-items: center;
+    border-radius: 4px;
+    padding: 2px;
 }
 
 .draggable-item img {
@@ -231,6 +248,8 @@ input::file-selector-button {
     pointer-events: none;
     height: 60px;
     width: 60px;
+    border-radius: 4px;
+    
 }
 
 .unranked-container {
@@ -238,6 +257,7 @@ input::file-selector-button {
     width: 60vw;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     background-color: var(--background-container);
 }
 
@@ -278,4 +298,8 @@ input::file-selector-button {
 
 .item-settings:hover {
     opacity: 1;
+}
+
+.image-input {
+    content: "Upload Photos";
 }
