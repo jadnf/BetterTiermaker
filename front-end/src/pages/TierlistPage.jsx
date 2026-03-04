@@ -226,7 +226,7 @@ export default function TierlistPage() {
         [newItemId]: {
             id: newItemId,
             imageUrl,
-            label: fileName || newItemId
+            label: fileName
         }
     }));
 
