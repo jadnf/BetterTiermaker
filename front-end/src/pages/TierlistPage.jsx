@@ -50,7 +50,8 @@ export default function TierlistPage() {
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
             <div>
-                <TierlistContainer tierOrder={tierOrder} tiersData={tiersData} setTiersData={setTiersData} tiers={tiers} itemsData={itemsData} removeTier={removeTier} updateItemLabel={updateItemLabel} deleteItem={deleteItem} />
+                <AddNewTier onAdd={addNewTier} />
+                <TierlistContainer tierOrder={tierOrder} tiersData={tiersData} setTiersData={setTiersData} tiers={tiers} itemsData={itemsData} removeTier={removeTier} updateItemLabel={updateItemLabel} deleteItem={deleteItem} name />
                 
                 <DragOverlay>
                     {dragOverlayLogic()}
