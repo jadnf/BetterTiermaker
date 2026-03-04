@@ -43,7 +43,7 @@ export default function TierlistContainer(props) {
             <div>
                 <SortableContext items={tierOrder} strategy={verticalListSortingStrategy}>
                     {tierOrder.map((tierId) => {
-                        return(<Tier key={tierId} id={tierId} items={tiers[tierId]} removeTier={removeTier} tierData={tiersData[tierId]} handleTitleChange={handleTitleChange} handleLabelColorChange={handleLabelColorChange} itemsData={itemsData} updateItemLabel={updateItemLabel} deleteItem={props.deleteItem}/>)
+                        return(<Tier key={tierId} id={tierId} items={tiers[tierId]} removeTier={removeTier} tierData={tiersData[tierId]} handleTitleChange={handleTitleChange} handleLabelColorChange={handleLabelColorChange} itemsData={itemsData} displayItemLabels={props.displayItemLabels} updateItemLabel={updateItemLabel} deleteItem={props.deleteItem}/>)
                                         
                     })}
                 </SortableContext>

@@ -11,6 +11,7 @@ export default function Tier(props) {
     const labelColor = tierData.labelColor;
     const handleTitleChange = props.handleTitleChange;
     const handleLabelColorChange = props.handleLabelColorChange;
+    const [isEditing, setIsEditing] = useState(false);
 
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({ 
         id: id,
@@ -25,7 +26,7 @@ export default function Tier(props) {
         width: props.isOverlay && props.overlayWidth ? props.overlayWidth : undefined,
     };
 
-    const tierlableStyle = {
+    const tierlabelStyle = {
         backgroundColor: labelColor 
     }
 
@@ -39,14 +40,29 @@ export default function Tier(props) {
             <div className="drag-handle" style={dragHandleSyle} {...attributes} {...listeners}>
                 <img alt="drag handle" src={"/images/drag-handle.png"} draggable="false" />
             </div>
-            <div className="tier-label" style={tierlableStyle}>
-                <input name={id + "-label"} className="tier-input" type="text" value={title} onChange={(prev) => {handleTitleChange(id, prev.target.value)}}/>
+            <div className="tier-label" style={tierlabelStyle}>
+                {isEditing ? (
+                    <textarea name={props.id + "-label"} className="tier-input" value={title} autoFocus
+                        onChange={(e) => handleTitleChange(props.id, e.target.value)}
+                        onBlur={() => setIsEditing(false)} 
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" && !e.shiftKey) {
+                                e.preventDefault();
+                                setIsEditing(false); 
+                            }
+                        }}
+                    />
+                ) : (
+                    <span className="tier-title-display" onClick={() => setIsEditing(true)}>
+                        {title}
+                    </span>
+                )}
             </div>
             <SortableContext items={items}>
                 <div  className="tier-middle">
                     {items.map((id) => {
                         return (
-                            <DraggableItem key={id} id={id} imageUrl={props.itemsData?.[id]?.imageUrl} label={props.itemsData?.[id]?.label} updateLabel={props.updateItemLabel} deleteItem={props.deleteItem} />
+                            <DraggableItem key={id} id={id} imageUrl={props.itemsData?.[id]?.imageUrl} label={props.itemsData?.[id]?.label} displayItemLabels={props.displayItemLabels} updateLabel={props.updateItemLabel} deleteItem={props.deleteItem} />
                         )
                     })}
                 </div>

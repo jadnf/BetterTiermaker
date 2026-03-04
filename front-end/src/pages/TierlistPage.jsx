@@ -39,6 +39,7 @@ export default function TierlistPage() {
     const [tierCount, setTierCount] = useState(3);
     const [activeId, setActiveId] = useState(null);
     const [activeType, setActiveType] = useState(null);
+    const [displayItemLabels, setDisplayItemLabels] = useState(true);
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -49,10 +50,9 @@ export default function TierlistPage() {
 
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
-            <div>
+            <div className="main-content">
+                <TierlistContainer tierOrder={tierOrder} tiersData={tiersData} setTiersData={setTiersData} tiers={tiers} itemsData={itemsData} removeTier={removeTier} displayItemLabels={displayItemLabels} updateItemLabel={updateItemLabel} deleteItem={deleteItem} name={name} handleNameChange={(e) => setName(e.target.value)} />
                 <AddNewTier onAdd={addNewTier} />
-                <TierlistContainer tierOrder={tierOrder} tiersData={tiersData} setTiersData={setTiersData} tiers={tiers} itemsData={itemsData} removeTier={removeTier} updateItemLabel={updateItemLabel} deleteItem={deleteItem} name={name} handleNameChange={(e) => setName(e.target.value)} />
-                
                 <DragOverlay>
                     {dragOverlayLogic()}
                 </DragOverlay>
@@ -65,12 +65,28 @@ export default function TierlistPage() {
                         </div>
                         <div>
                             <h5>Load from JSON</h5> <br></br>
-                            <input type="file" accept="application/json,.json" onChange={handleLoadTierlist} />
+                            <div className="file-input-div">
+                                <input type="file" accept="application/json,.json" onChange={handleLoadTierlist} />
+                            </div>
                         </div>
                         <div>
                             <h5>Save to JSON</h5> <br></br>
-                            <button onClick={() => saveTierListToJSONFile(name, tiers, tierOrder, tiersData, itemsData, tierCount)}>Download Tierlist</button>
+                            <button onClick={() => saveTierListToJSONFile(name, tiers, tierOrder, tiersData, itemsData, tierCount)} className="file-input-div">Download Tierlist</button>
                         </div>
+                    </div>
+                    <div className="item-labels-toggle-div">
+                        <label className="toggle-label" style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "8px" }}>
+                            <div className="toggle-switch">
+                                <input 
+                                    type="checkbox" 
+                                    className="toggle-input"
+                                    checked={displayItemLabels} 
+                                    onChange={(e) => setDisplayItemLabels(e.target.checked)} 
+                                />
+                                <span className="toggle-slider"></span>
+                            </div>
+                            <span className="toggle-text">Show Item Labels</span>
+                        </label>
                     </div>
                 </div>
                 
@@ -188,11 +204,11 @@ export default function TierlistPage() {
         if (!activeId) return null;
 
         if (activeType === "Item") {
-            return (<DraggableItem id={activeId} imageUrl={itemsData[activeId]} isOverlay={true} /> );
+            return (<DraggableItem id={activeId} displayItemLabels={displayItemLabels} imageUrl={itemsData[activeId].imageUrl} isOverlay={true} /> );
         } 
 
         if (activeType === "Tier") {
-            return ( <Tier key={activeId} id={activeId} items={tiers[activeId]} tierData={tiersData[activeId]} imgUrlLookup={itemsData} isOverlay={true} /> )            
+            return ( <Tier key={activeId} id={activeId} items={tiers[activeId]} displayItemLabels={displayItemLabels} tierData={tiersData[activeId]} itemsData={itemsData} isOverlay={true} /> )            
         }        
     }
 

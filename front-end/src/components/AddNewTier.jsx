@@ -1,6 +1,3 @@
-import React, { useState } from "react";
-
-
 function AddNewTier({ onAdd }) {
     function handleAdd() {
         if(onAdd){
@@ -10,7 +7,7 @@ function AddNewTier({ onAdd }) {
     
     return (
         <div>
-            <button onClick={handleAdd}>Add New Tier</button>
+            <button className="add-tier-button" onClick={handleAdd}>Add New Tier</button>
         </div>
     );
 }
