@@ -234,10 +234,10 @@ input::file-selector-button {
 }
 
 .unranked-container {
-    height: 100px;
+    min-height: 100px;
     width: 60vw;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-color: var(--background-container);
 }
 
